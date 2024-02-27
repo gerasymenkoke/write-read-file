@@ -1,0 +1,128 @@
+name: Android CI
+
+on:
+  # Triggers the workflow on push or pull request events but only for default and protected branches
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '20'
+          distribution: 'adopt'
+
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+
+
+     
+    
+      - name: Gradle Wrapper Validation
+        uses: gradle/wrapper-validation-action@v1
+      
+      - uses: actions/cache@v4
+        with:
+          path: |
+                 ~/.gradle/caches
+                 ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+
+   #   - name: Run tests
+   #     run: ./gradlew test
+
+
+
+
+      - name: SECRET_KEY_64 
+        run:  echo "$KEY_64" | base64 -d 
+      # this  sourse data no equals data in secret(there base64 format). 
+      # For checking, use  https://base64.guru/converter  
+      # HEX(below make copy paste an result xxd -p SIGNING_KEY.jks) to Base64           
+        shell: bash
+        env:
+          KEY_64: ${{ secrets.SIGNING_KEY_64_JKS }}
+    
+      - name: SECRET_PASSWORD_64 
+        run:  echo "$PASSWORD_64" | base64 -d 
+       # this  sourse data no equals data in secret(there base64 format).
+       # For checking, use  https://base64.guru/converter txt (password) to Base64 
+        shell: bash
+        env:
+          PASSWORD_64: ${{ secrets.PASSWORD_64 }}
+
+
+
+    
+      - name: Build project
+        run: |
+             ./gradlew build
+        
+        
+        
+             PROJ="/home/runner/work/paint/paint"
+             ZIPALIGN="/usr/local/lib/android/sdk/build-tools/31.0.0/zipalign"
+             APKSIGNER="/usr/local/lib/android/sdk/build-tools/31.0.0/apksigner" 
+             echo "Signing  APK...."
+             cd /home/runner/work/paint/paint/
+             
+             
+             
+             
+             
+             echo "${{ secrets.SIGNING_KEY_64_JKS }}" | base64 -d > SIGNING_KEY.jks 
+             echo "${{ secrets.PASSWORD_64 }}" | base64 -d  > PASSWORD.txt
+             echo "make copy-paste this HEX to converter HEX to base64 to get base64 code and paste it
+             in  secret action " 
+             xxd -p SIGNING_KEY.jks
+             
+                          
+             
+             echo "ZIPALIGNing APK..."
+          
+             $ZIPALIGN -p -f -v 4 $PROJ/app/build/outputs/apk/debug/app-debug.apk $PROJ/app/build/outputs/apk/debug/app-debug1.apk 
+                   
+             
+             
+
+             $APKSIGNER sign  --ks  SIGNING_KEY.jks   $PROJ/app/build/outputs/apk/debug/app-debug1.apk   < PASSWORD.txt
+             $APKSIGNER verify -v  -v4-signature-file $PROJ/app/build/outputs/apk/debug/app-debug1.apk.idsig $PROJ/app/build/outputs/apk/debug/app-debug1.apk  
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+         name: app-debug
+         path: app/build/outputs/apk/debug/app-debug1.apk  
+        
