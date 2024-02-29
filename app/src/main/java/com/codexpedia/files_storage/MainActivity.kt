@@ -26,7 +26,7 @@ class MainActivity : Activity() {
     }
 
     private fun initButtonListeners() {
-        btn_write.setOnClickListener {
+        btnWrite.setOnClickListener {
             if (!fileExists()) {
                 try {
                     val inputString = et_input_string.text.toString()
