@@ -10,7 +10,7 @@ import java.io.InputStreamReader
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_main.*
+// import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : Activity() {
