@@ -31,31 +31,31 @@
           
   <RelativeLayout
           
-    <Button
+   
         android:id="@+id/btn_read"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Read" />
+        android:text="Read" >
 
  </RelativeLayout>
 
    <RelativeLayout    
-    <Button
+   
         android:id="@+id/btn_delete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Delete" />
+        android:text="Delete" >
 
  </RelativeLayout>
        
  <RelativeLayout
        
-    <TextView
+   
         android:id="@+id/tv_display"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="10dp"/>
+        android:padding="10dp">
 
   </RelativeLayout>
 
