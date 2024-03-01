@@ -13,18 +13,49 @@ import android.os.Bundle
 // import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : Activity() {
-    companion object {
-        private val fileName = "my_note.txt"
+
+
+class MainActivity : AppCompatActivity() {
+
+    private val binding: ActivityMainBinding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
     }
 
-    public override fun onCreate(savedInstanceState: Bundle?) {
+
+companion object {
+   private val fileName = "my_note.txt"
+    }
+
+
+
+//class MainActivity : Activity() {
+//    companion object {
+//        private val fileName = "my_note.txt"
+//    }
+
+
+
+//    public override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setContentView(R.layout.activity_main)
+//
+//        initButtonListeners()
+//    }
+
+  
+    
+     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+             
+        setContentView(binding.root)
 
-        initButtonListeners()
-    }
+        supportActionBar?.hide()
 
+          binding.apply {
+
+    
+    
+    
     private fun initButtonListeners() {
         btnWrite.setOnClickListener {
             if (!fileExists()) {
