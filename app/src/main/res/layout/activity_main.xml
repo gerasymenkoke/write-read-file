@@ -11,21 +11,21 @@
 
 
      <RelativeLayout
-    <EditText
+  
         android:id="@+id/et_input_string"
         android:layout_width="fill_parent"
         android:layout_height="200dp"
-        android:hint="Wite something here..."/>
+        android:hint="White something here...">
 
  </RelativeLayout>
 
 
       <RelativeLayout
-    <Button
+   
         android:id="@+id/btn_write"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Write" />
+        android:text="Write" >
 
  </RelativeLayout>
           
