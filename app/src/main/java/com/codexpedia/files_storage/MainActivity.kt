@@ -50,8 +50,8 @@ class MainActivity : AppCompatActivity() {
         btnView.setOnClickListener(View.OnClickListener {  
                 val filename = fileName.text.toString()  
                 if(filename.toString()!="" && filename.toString().trim()!=""){  
-                   var fileInputStream: FileInputStream? = null  
-                   fileInputStream = openFileInput(filename)  
+                   // var fileInputStream: FileInputStream? = null  
+                   var fileInputStream = openFileInput(filename)  
                    var inputStreamReader: InputStreamReader = InputStreamReader(fileInputStream)  
                    val bufferedReader: BufferedReader = BufferedReader(inputStreamReader)  
                    val stringBuilder: StringBuilder = StringBuilder()  
