@@ -1,170 +1,69 @@
 package com.codexpedia.files_storage
 
 
-import java.io.BufferedReader
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.InputStreamReader
-import android.app.Activity
-import android.content.Context
-import android.os.Bundle
-// import kotlinx.android.synthetic.main.activity_main.*
-
-
-
-
-class MainActivity : AppCompatActivity() {
-
-    private val binding: ActivityMainBinding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
-    }
-
-
-companion object {
-   private val fileName = "my_note.txt"
-    }
-
-
-
-//class MainActivity : Activity() {
-//    companion object {
-//        private val fileName = "my_note.txt"
-//    }
-
-
-
-//    public override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
-//
-//        initButtonListeners()
-//    }
 
   
-    
-     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-             
-        setContentView(binding.root)
-
-        supportActionBar?.hide()
-
-          binding.apply {
-
-    
-    
-    
-    private fun initButtonListeners() {
-        btnWrite.setOnClickListener {
-            if (!fileExists()) {
-                try {
-                    val inputString = et_input_string.text.toString()
-                    writeFile(inputString)
-                } catch (e: IOException) {
-                    showError(e.message)
-                }
-
-            } else {
-                displayText(fileName + " already exists!")
-            }
-        }
-
-        btn_read.setOnClickListener {
-            if (fileExists()) {
-                try {
-                    val myString = readFile()
-                    displayText(myString)
-                } catch (e: IOException) {
-                    showError(e.message)
-                }
-
-            } else {
-                displayText(fileName + " does not exist!")
-            }
-        }
-
-        btn_delete.setOnClickListener {
-            if (fileExists()) {
-                deleteMyFile(fileName)
-            } else {
-                displayText(fileName + " does not exist")
-            }
-        }
-    }
-
-    @Throws(IOException::class)
-    private fun writeFile(stringToSave: String) {
-        var outStream: FileOutputStream? = null
-        try {
-            outStream = openFileOutput(fileName, Context.MODE_PRIVATE)
-            outStream!!.write(stringToSave.toByteArray())
-            if (fileExists()) {
-                displayText("File saved.")
-            } else {
-                displayText("File not saved.")
-            }
-        } catch (e: Exception) {
-            showError(e.message)
-        } finally {
-            outStream!!.close()
-        }
-    }
-
-    @Throws(IOException::class)
-    private fun readFile(): String {
-        var inStream: FileInputStream? = null
-        var myInputStreamReader: InputStreamReader? = null
-        var myBufferedReader: BufferedReader? = null
-        var retrievedString = ""
-        try {
-            inStream = openFileInput(fileName)
-            myInputStreamReader = InputStreamReader(inStream!!)
-            myBufferedReader = BufferedReader(myInputStreamReader)
-            var readLineString: String? = myBufferedReader.readLine()
-            while (readLineString != null) {
-                retrievedString = retrievedString + readLineString
-                readLineString = myBufferedReader.readLine()
-            }
-        } catch (ioe: IOException) {
-            showError(ioe.message)
-        } finally {
-            myBufferedReader!!.close()
-            myInputStreamReader!!.close()
-            inStream!!.close()
-        }
-        return retrievedString
-    }
-
-    private fun deleteMyFile(fileName: String) {
-        val dir = filesDir
-        val file = File(dir, fileName)
-        val deleted = file.delete()
-        if (deleted) {
-            displayText("File deleted.")
-        } else {
-            displayText("File not deleted.")
-        }
-    }
-
-    private fun fileExists(): Boolean {
-        val dir = filesDir
-        val file = File(dir, fileName)
-        return file.exists()
-    }
-
-    private fun displayText(stringName: String) {
-        tv_display.text = stringName
-    }
-
-    private fun showError(message: String?) {
-        tv_display.setTextColor(resources.getColor(R.color.red))
-        tv_display.text = "ERROR: " + message
-    }
-
-}
-
-     }
-
-}
+import android.content.Context  
+import android.support.v7.app.AppCompatActivity  
+import android.os.Bundle  
+import android.view.View  
+import android.widget.Button  
+import android.widget.EditText  
+import android.widget.Toast  
+import java.io.*  
+  
+  
+class MainActivity : AppCompatActivity() {  
+  
+    override fun onCreate(savedInstanceState: Bundle?) {  
+        super.onCreate(savedInstanceState)  
+        setContentView(R.layout.activity_main)  
+  
+        val fileName = findViewById<EditText>(R.id.editFile)  
+        val fileData = findViewById<EditText>(R.id.editData)  
+  
+        val btnSave = findViewById<Button>(R.id.btnSave)  
+        val btnView = findViewById<Button>(R.id.btnView)  
+  
+        btnSave.setOnClickListener(View.OnClickListener {  
+            val file:String = fileName.text.toString()  
+            val data:String = fileData.text.toString()  
+            val fileOutputStream:FileOutputStream  
+            try {  
+                fileOutputStream = openFileOutput(file, Context.MODE_PRIVATE)  
+                fileOutputStream.write(data.toByteArray())  
+            } catch (e: FileNotFoundException){  
+                e.printStackTrace()  
+            }catch (e: NumberFormatException){  
+                e.printStackTrace()  
+            }catch (e: IOException){  
+                e.printStackTrace()  
+            }catch (e: Exception){  
+                e.printStackTrace()  
+            }  
+            Toast.makeText(applicationContext,"data save",Toast.LENGTH_LONG).show()  
+            fileName.text.clear()  
+            fileData.text.clear()  
+        })  
+  
+        btnView.setOnClickListener(View.OnClickListener {  
+                val filename = fileName.text.toString()  
+                if(filename.toString()!=null && filename.toString().trim()!=""){  
+                   var fileInputStream: FileInputStream? = null  
+                   fileInputStream = openFileInput(filename)  
+                   var inputStreamReader: InputStreamReader = InputStreamReader(fileInputStream)  
+                   val bufferedReader: BufferedReader = BufferedReader(inputStreamReader)  
+                   val stringBuilder: StringBuilder = StringBuilder()  
+                   var text: String? = null  
+                   while ({ text = bufferedReader.readLine(); text }() != null) {  
+                       stringBuilder.append(text)  
+                   }  
+                   //Displaying data on EditText  
+                   fileData.setText(stringBuilder.toString()).toString()  
+               }else{  
+                   Toast.makeText(applicationContext,"file name cannot be blank",Toast.LENGTH_LONG).show()  
+               }  
+        })  
+  
+    }  
+}  
