@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
   
         btnView.setOnClickListener(View.OnClickListener {  
                 val filename = fileName.text.toString()  
-                if(filename.toString()!=null && filename.toString().trim()!=""){  
+                if(filename.toString()!="" && filename.toString().trim()!=""){  
                    var fileInputStream: FileInputStream? = null  
                    fileInputStream = openFileInput(filename)  
                    var inputStreamReader: InputStreamReader = InputStreamReader(fileInputStream)  
