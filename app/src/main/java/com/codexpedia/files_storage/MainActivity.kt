@@ -45,9 +45,24 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(applicationContext,"data save",Toast.LENGTH_LONG).show()  
             fileName.text.clear()  
             fileData.text.clear()  
+
+
+            // copy from internal to external storage
+    val to = File(Environment.getExternalStorageDirectory().absolutePath + "/Download.file")
+    if(to.exists().not()) {
+        to.createNewFile()
+    }
+    file.copyTo(to, true)
+
+
+
+            
         })  
   
-        btnView.setOnClickListener(View.OnClickListener {  
+     
+      
+      
+      btnView.setOnClickListener(View.OnClickListener {  
                 val filename = fileName.text.toString()  
                 if(filename.toString()!="" && filename.toString().trim()!=""){  
                    // var fileInputStream: FileInputStream? = null  
