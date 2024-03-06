@@ -52,21 +52,30 @@ class MainActivity : AppCompatActivity() {
             // copy from internal to external storage
    
           
-    //      val to = File(Environment.getExternalStorageDirectory().toString() +  "/Download/test.txt")
+ val resolver = this.contentResolver
+        val contentValues = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, "myDoc1")
+            put(MediaStore.MediaColumns.MIME_TYPE, "text/plain")
+            put(MediaStore.MediaColumns.RELATIVE_PATH, "Documents")
+        }
+        val uri: Uri? = resolver.insert(MediaStore.Files.getContentUri("external"), contentValues)
+        Log.d("Uri", "$uri")
+        write.setOnClickListener {
+            val edt : String = editText.text.toString()
+            if (uri != null) {
+                resolver.openOutputStream(uri).use {
+                    it?.write("Harish Gyanani $edt".toByteArray())
+                    it?.close()
+                }
+            }
+        }
 
-        val folder = Environment.getExternalStorageDirectory().toString()
-        val to = File(folder, file)
-          
-          //val to = File(Environment.getExternalStorageDirectory().toString() +  "/Download/test.txt")
+
+
+
+
+
   
-  //    File(Environment.getExternalStorageDirectory(), "test.txt").copyTo(
-  //  File(Environment.getExternalStorageDirectory(), "Download/test1.txt") )    
-          
-         if(to.exists().not()) {
-        to.createNewFile()
-    }
-    file.copyTo(to, true)
-
 
 
 
