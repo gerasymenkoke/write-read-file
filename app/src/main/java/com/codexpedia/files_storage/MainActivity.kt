@@ -30,10 +30,11 @@ class MainActivity : AppCompatActivity() {
   
         btnSave.setOnClickListener(View.OnClickListener {  
             val file:String = fileName.text.toString()  
-            val data:String = fileData.text.toString()  
+          //  val data:String = fileData.text.toString()  
+             val data:String = context.getFileStreamPath(name).getAbsolutePath()
             val fileOutputStream:FileOutputStream  
             try {  
-                fileOutputStream = openFileOutput(file, Context.MODE_PRIVATE)  
+                fileOutputStream = openFileOutput( file, Context.MODE_PRIVATE)  
                 fileOutputStream.write(data.toByteArray())  
             } catch (e: FileNotFoundException){  
                 e.printStackTrace()  
@@ -52,23 +53,10 @@ class MainActivity : AppCompatActivity() {
             // copy from internal to external storage
    
           
- val resolver = this.contentResolver
-        val contentValues = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, "myDoc1")
-            put(MediaStore.MediaColumns.MIME_TYPE, "text/plain")
-            put(MediaStore.MediaColumns.RELATIVE_PATH, "Documents")
-        }
-        val uri: Uri? = resolver.insert(MediaStore.Files.getContentUri("external"), contentValues)
-        Log.d("Uri", "$uri")
-        write.setOnClickListener {
-            val edt : String = editText.text.toString()
-            if (uri != null) {
-                resolver.openOutputStream(uri).use {
-                    it?.write("Harish Gyanani $edt".toByteArray())
-                    it?.close()
-                }
-            }
-        }
+
+
+
+          
 
 
 
