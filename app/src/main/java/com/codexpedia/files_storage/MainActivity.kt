@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         btnSave.setOnClickListener(View.OnClickListener {  
             val file:String = fileName.text.toString()  
           //  val data:String = fileData.text.toString()  
-            val data:String = getFilesDir()
+            val data:String = getFilesDir().toString()
           //getFilesStreamPath(name).getAbsolutePath()
             val fileOutputStream:FileOutputStream  
             try {  
