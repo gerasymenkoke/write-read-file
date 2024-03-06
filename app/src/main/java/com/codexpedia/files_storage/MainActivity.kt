@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             // copy from internal to external storage
    
           
-          val to = File(Environment.getExternalStorageDirectory().toString() +  "/Download/test.txt")
+    //      val to = File(Environment.getExternalStorageDirectory().toString() +  "/Download/test.txt")
 
         val folder = Environment.getExternalStorageDirectory()
         val to = File(folder, file)
