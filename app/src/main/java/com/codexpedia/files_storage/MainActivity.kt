@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
           
     //      val to = File(Environment.getExternalStorageDirectory().toString() +  "/Download/test.txt")
 
-        val folder = Environment.getExternalStorageDirectory()
+        val folder = Environment.getExternalStorageDirectory().toString()
         val to = File(folder, file)
           
           //val to = File(Environment.getExternalStorageDirectory().toString() +  "/Download/test.txt")
