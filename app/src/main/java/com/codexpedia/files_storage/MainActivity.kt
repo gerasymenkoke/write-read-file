@@ -14,6 +14,7 @@ import android.widget.Toast
 import java.io.*  
 import kotlin.io.*
 
+private val repo: NoteRepository by lazy { ExternalFileRepository(this) }
 
   
 class MainActivity : AppCompatActivity() {  
@@ -54,7 +55,14 @@ class MainActivity : AppCompatActivity() {
             // copy from internal to external storage
            // 
           
-
+if (isExternalStorageWritable()) {
+  // 2
+  FileOutputStream(noteFile(note.fileName)).use { output ->
+    // 3
+   note.noteText = "Hello kostya"
+    output.write(note.noteText.toByteArray())
+  }
+}
 
           
 
