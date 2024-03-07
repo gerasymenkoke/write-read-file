@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
           //getFilesStreamPath(name).getAbsolutePath()
             val fileOutputStream:FileOutputStream  
             try {  
-                fileOutputStream = openFileOutput( file, Context.MODE_PRIVATE)  
+                fileOutputStream = openFileOutput( file, Context.MODE_PUBLIC)  
                 fileOutputStream.write(data.toByteArray())  
             } catch (e: FileNotFoundException){  
                 e.printStackTrace()  
@@ -59,14 +59,7 @@ class MainActivity : AppCompatActivity() {
             // copy from internal to external storage
            // 
           
-if (isExternalStorageWritable()) {
-  // 2
-  FileOutputStream(noteFile(note.fileName)).use { output ->
-    // 3
-   note.noteText = "Hello kostya"
-    output.write(note.noteText.toByteArray())
-  }
-}
+
 
           
 
