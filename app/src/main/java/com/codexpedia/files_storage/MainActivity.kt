@@ -20,7 +20,7 @@ import kotlin.io.*
 class MainActivity : AppCompatActivity() {  
 
 
-private val repo: NoteRepository by lazy { ExternalFileRepository(this) }
+
 
   
     override fun onCreate(savedInstanceState: Bundle?) {  
