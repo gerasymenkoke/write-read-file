@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
           //getFilesStreamPath(name).getAbsolutePath()
             val fileOutputStream:FileOutputStream  
             try {  
-                fileOutputStream = openFileOutput( file, Context.MODE_WORLD_READABLE)  
+                fileOutputStream = openFileOutput( file, 1)  
                 fileOutputStream.write(data.toByteArray())  
             } catch (e: FileNotFoundException){  
                 e.printStackTrace()  
