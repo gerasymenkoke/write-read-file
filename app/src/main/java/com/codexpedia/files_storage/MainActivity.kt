@@ -14,10 +14,14 @@ import android.widget.Toast
 import java.io.*  
 import kotlin.io.*
 
-private val repo: NoteRepository by lazy { ExternalFileRepository(this) }
+
 
   
 class MainActivity : AppCompatActivity() {  
+
+
+private val repo: NoteRepository by lazy { ExternalFileRepository(this) }
+
   
     override fun onCreate(savedInstanceState: Bundle?) {  
         super.onCreate(savedInstanceState)  
