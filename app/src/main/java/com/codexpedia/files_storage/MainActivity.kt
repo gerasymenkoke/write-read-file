@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             // copy from internal to external storage
            // 
           
-
+var sdCardUri : Uri? = null
 val sdCardRoot = DocumentFile.fromTreeUri(this, sdCardUri)
 //    val internalFile = File(Environment.getExternalStorageDirectory(), "sample.txt")
     // get or create file
