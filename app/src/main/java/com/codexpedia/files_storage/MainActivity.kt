@@ -52,10 +52,18 @@ class MainActivity : AppCompatActivity() {
 
 
             // copy from internal to external storage
-   
+           // 
           
 
-
+val sdCardRoot = DocumentFile.fromTreeUri(this, sdCardUri)
+//    val internalFile = File(Environment.getExternalStorageDirectory(), "sample.txt")
+    // get or create file
+    val sdCardFile = sdCardRoot.findFile("test.txt") ?: sdCardRoot.createFile(null, "test.txt")
+    val outStream = contentResolver.openOutputStream(sdCardFile.uri)
+    outStream.write(internalFile.readBytes())
+    outStream.flush()
+    outStream.close()
+    Toast.makeText(this, "copied to SDCard", Toast.LENGTH_SHORT).show()
 
           
 
