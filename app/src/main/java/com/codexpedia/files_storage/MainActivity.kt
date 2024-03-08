@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 var myExternalFile:File = File("/storage/19EB-032A/",fileName)  
           
             try {  
-                fileOutputStream = openFileOutput( myExternalFile, MODE_PRIVATE)  
+                fileOutputStream = openFileOutput( myExternalFile.toString(), MODE_PRIVATE)  
                 fileOutputStream.write(data.toByteArray())  
             } catch (e: FileNotFoundException){  
                 e.printStackTrace()  
