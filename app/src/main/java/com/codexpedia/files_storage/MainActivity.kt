@@ -39,8 +39,11 @@ class MainActivity : AppCompatActivity() {
          //   val data:String = getFilesDir().toString()
           //getFilesStreamPath(name).getAbsolutePath()
             val fileOutputStream:FileOutputStream  
+
+var myExternalFile:File = File(getExternalFilesDir("/storage/19EB-032A/"),fileName)  
+          
             try {  
-                fileOutputStream = openFileOutput( file, 1)  
+                fileOutputStream = openFileOutput( myExternalFile, CODE_PRIVATE)  
                 fileOutputStream.write(data.toByteArray())  
             } catch (e: FileNotFoundException){  
                 e.printStackTrace()  
