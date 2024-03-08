@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
           //getFilesStreamPath(name).getAbsolutePath()
             val fileOutputStream:FileOutputStream  
 
-var myExternalFile:File = File("/storage/19EB-032A/",fileName)  
+var myExternalFile:File = File("/storage/19EB-032A/",file)  
           
             try {  
                 fileOutputStream = openFileOutput( myExternalFile.toString(), MODE_PRIVATE)  
