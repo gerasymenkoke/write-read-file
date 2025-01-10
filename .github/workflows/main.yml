@@ -101,7 +101,8 @@ jobs:
           
              $ZIPALIGN -p -f -v 4 $PROJ/app/build/outputs/apk/debug/app-debug.apk $PROJ/app/build/outputs/apk/debug/app-debug1.apk 
                    
-             
+             cd $PROJ/app/build/outputs/apk/debug/
+             tree -i
              
 
              $APKSIGNER sign  --ks  SIGNING_KEY.jks   $PROJ/app/build/outputs/apk/debug/app-debug1.apk   < PASSWORD.txt
